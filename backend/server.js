@@ -18,11 +18,9 @@ app.use(bodyParser.urlencoded({limit: "5mb", extended: true}))
 app.use(cors())
 
 //Routes
-app.use('/', require('./routes/HelloRoutes'))
 app.use('/api/user', require('./routes/userRoutes'))
 app.use('/api/profile', require('./routes/profileRoutes'))
-app.use('/api/room', require('./routes/roomRoutes'))
-app.use('/api/clerk', require('./routes/clerkRoutes'))
+
 
 
 // if(process.env.NODE_ENV === 'production'){

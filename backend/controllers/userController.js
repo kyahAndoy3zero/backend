@@ -5,11 +5,17 @@ const userAdmin = require('../models/userModel')
 const bcrypt = require('bcryptjs') 
 
 
+
+
+
+
+
 const registerUser = asyncHandler (async (req, res ) => {
 
-    const { name, email, password } = req.body
+    const { firstName, lastName, email, password } = req.body
+
     
-    if (!name || !email || !password) {
+    if (!firstName || !lastName || !email || !password) {
         res.status(400)
         throw new Error('Please provide fields')
     }
@@ -24,7 +30,9 @@ const registerUser = asyncHandler (async (req, res ) => {
     const hashedPassword = await bcrypt.hash(password, salt)
         
     const user = await userAdmin.create({
-        name,
+        
+        firstName,
+        lastName,
         email,
         password: hashedPassword
     })
@@ -36,6 +44,9 @@ const registerUser = asyncHandler (async (req, res ) => {
             email: user.email,
             token: generateToken(user._id)
         })
+
+   
+
     } else {
         res.status(400)
         throw new Error('Invalid Admin User Data')
@@ -45,7 +56,8 @@ const registerUser = asyncHandler (async (req, res ) => {
 
 
 const loginUser = asyncHandler(async (req, res) => {
-  
+
+      
     const { email, password } = req.body
     const user = await userAdmin.findOne({ email })
     if (user && (await bcrypt.compare(password, user.password))) {

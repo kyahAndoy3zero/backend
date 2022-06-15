@@ -1,7 +1,11 @@
 const mongoose = require('mongoose')
 
-const adminUserSchema = mongoose.Schema({
-    name: {
+const clerkUserSchema = mongoose.Schema({
+    firstName: {
+        type: String,
+        required: [true, 'Please add your name']
+    }, 
+    lastName: {
         type: String,
         required: [true, 'Please add your name']
     },
@@ -19,4 +23,4 @@ const adminUserSchema = mongoose.Schema({
 })
 
 
-module.exports = mongoose.model('faculty', adminUserSchema)
+module.exports = mongoose.model('clerk', clerkUserSchema)
